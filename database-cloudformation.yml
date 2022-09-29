@@ -2,10 +2,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template'
 Parameters:
   DBName:
-    Default: bpartners
+    Default: database
     Type: String
     MinLength: '5'
     MaxLength: '10'
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    ConstraintDescription: must begin with a letter and contain only alphanumeric
+      characters.
   DBUsername:
     Default: root
     NoEcho: 'false'
@@ -31,7 +34,7 @@ Parameters:
     ConstraintDescription: must be between 5+
 
 Resources:
-  bpartners:
+  database:
     Type: AWS::RDS::DBInstance
     Properties:
       DBName:
@@ -52,11 +55,11 @@ Outputs:
       - ''
       - - jdbc:postgresql://
         - Fn::GetAtt:
-          - bpartners
+          - pgDB
           - Endpoint.Address
         - ":"
         - Fn::GetAtt:
-          - bpartners
+          - pgDB
           - Endpoint.Port
         - "/"
         - Ref: DBName
