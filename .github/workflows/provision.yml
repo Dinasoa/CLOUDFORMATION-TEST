@@ -3,7 +3,7 @@ name: provision
 on:
   push:
     branches:
-      - 'dev'
+      - 'main'
 
   workflow_dispatch:
 
@@ -22,10 +22,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-3
 
-      - name: Deploy to AWS CloudFormation
+      - name: Provision database
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: cloudform-database
+          name: database-cloudformation
           template: database-cloudformation.yml
           no-fail-on-empty-changeset: "1"
           parameter-overrides:
