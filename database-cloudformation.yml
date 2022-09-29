@@ -14,8 +14,6 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Default: '{{resolve:ssm:/bpartners/${Env}/dbusername}}'
     NoEcho: 'false'
-    MinLength: '5'
-    MaxLength: '15'
   DBPassword:
     Default: root1234
     NoEcho: 'true'
