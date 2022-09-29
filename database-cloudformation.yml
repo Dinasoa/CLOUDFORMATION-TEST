@@ -3,7 +3,7 @@ Description: 'PostgreSQL RDS Template'
 Parameters:     
   DBUsername:
     Type: AWS::SSM::Parameter::Value<String>
-    Default: '{{resolve:ssm:/bpartners/${Env}/dbusername}}'
+    Default: root
     NoEcho: 'false'
     MinLength: '5'
     MaxLength: '15'
