@@ -52,11 +52,11 @@ Outputs:
       - ''
       - - jdbc:postgresql://
         - Fn::GetAtt:
-          - pgDB
+          - bpartners
           - Endpoint.Address
         - ":"
         - Fn::GetAtt:
-          - pgDB
+          - bpartners
           - Endpoint.Port
         - "/"
         - Ref: DBName
