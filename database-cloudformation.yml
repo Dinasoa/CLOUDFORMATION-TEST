@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template'
 Parameters:
   DBName:
-    Default: database
+    Default: db
     Type: String
     MinLength: '5'
     MaxLength: '10'
@@ -19,6 +19,11 @@ Parameters:
     AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
+  DBClass:
+    Default: db.t3.micro
+    Description: Database instance class
+    Type: String
+    ConstraintDescription: must select a valid database instance type.
   DBPassword:
     Default: root1234
     NoEcho: 'true'
@@ -34,7 +39,7 @@ Parameters:
     ConstraintDescription: must be between 5+
 
 Resources:
-  database:
+  db:
     Type: AWS::RDS::DBInstance
     Properties:
       DBName:
@@ -42,6 +47,8 @@ Resources:
       AllocatedStorage:
         Ref: DBAllocatedStorage
       Engine: postgres
+      DBInstanceClass:
+        Ref: DBClass
       MasterUsername:
         Ref: DBUsername
       MasterUserPassword:
@@ -55,11 +62,11 @@ Outputs:
       - ''
       - - jdbc:postgresql://
         - Fn::GetAtt:
-          - database
+          - db
           - Endpoint.Address
         - ":"
         - Fn::GetAtt:
-          - database
+          - db
           - Endpoint.Port
         - "/"
         - Ref: DBName
