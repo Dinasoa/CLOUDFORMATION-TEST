@@ -1,19 +1,16 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template '
 Parameters:
-  DBName:
-    Default: pgDB
-    Description: The database name
+  DBUsername:
+    Default: root
+    NoEcho: 'false'
+    Description: The database admin account username
     Type: String
     MinLength: '1'
-    MaxLength: '8'
+    MaxLength: '16'
     AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
-  DBUsername:
-    Type: AWS::SSM::Parameter::Value<String>
-    Default: !Sub '{{resolve:ssm:/bpartners/dev/dbusername}}'
-    NoEcho: 'false'
   DBPassword:
     Default: root1234
     NoEcho: 'true'
@@ -38,7 +35,12 @@ Resources:
     Type: AWS::RDS::DBInstance
     Properties:
       DBName:
-        Ref: DBName
+        Description: The database name
+        Type: String
+        MinLength: '1'
+        MaxLength: '8'
+        AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+        ConstraintDescription: must begin with a letter and contain only alphanumeric characters.
       AllocatedStorage:
         Ref: DBAllocatedStorage
       DBInstanceClass:
