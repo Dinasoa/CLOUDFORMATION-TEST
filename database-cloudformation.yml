@@ -17,6 +17,7 @@ Parameters:
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
   DBPassword:
+    Default: root1234
     NoEcho: 'true'
     Description: The database admin account password
     Type: String
@@ -37,8 +38,6 @@ Resources:
         Ref: DBName
       AllocatedStorage:
         Ref: DBAllocatedStorage
-      DBInstanceClass:
-        Ref: DBClass
       Engine: postgres
       MasterUsername:
         Ref: DBUsername
