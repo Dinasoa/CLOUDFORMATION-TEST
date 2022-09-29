@@ -12,7 +12,7 @@ Parameters:
       characters.
   DBUsername:
     Type: AWS::SSM::Parameter::Value<String>
-    Default: '{{resolve:ssm:/bpartners/${Env}/dbusername}}'
+    Default: '{{resolve:ssm:/bpartners/dev/dbusername}}'
     NoEcho: 'false'
   DBPassword:
     Default: root1234
