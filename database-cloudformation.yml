@@ -66,4 +66,4 @@ Outputs:
           - pgDB
           - Endpoint.Port
         - "/"
-        - Ref: DBName
+        - DBName
