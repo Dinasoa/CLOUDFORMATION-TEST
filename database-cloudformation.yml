@@ -19,8 +19,8 @@ Resources:
   bpDataBase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: 'bpDatabase'
-      DBUsername: 'root'
+      DBName: "bpDatabase"
+      DBUsername: "root"
       AllocatedStorage:
         Ref: DBAllocatedStorage
       Engine: postgres
