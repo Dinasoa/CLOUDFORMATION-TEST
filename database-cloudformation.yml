@@ -20,7 +20,7 @@ Resources:
     Type: AWS::RDS::DBInstance
     Properties:
       DBName: 'bpDatabase'
-      DBUsername: '{{resolve:ssm:/bpartners/dev/dbusername}}'
+      DBUsername: 'root'
       AllocatedStorage:
         Ref: DBAllocatedStorage
       Engine: postgres
