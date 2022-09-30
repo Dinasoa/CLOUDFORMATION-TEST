@@ -17,6 +17,11 @@ Parameters:
     Description: The database admin account password
     Type: String
     MinLength: '8'
+  DBClass:
+    Default: db.t3.micro
+    Description: Database instance class
+    Type: String
+    ConstraintDescription: must select a valid database instance type.
   DBAllocatedStorage:
     Default: '5'
     Description: The size of the database (Gb)
@@ -32,6 +37,8 @@ Resources:
       DBName: 'bpDatabase'
       AllocatedStorage:
         Ref: DBAllocatedStorage
+      DBInstanceClass:
+        Ref: DBClass
       Engine: postgres
       MasterUsername:
         Ref: DBUsername
