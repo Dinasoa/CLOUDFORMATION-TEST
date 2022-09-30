@@ -1,6 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template '
 Parameters:
+  DBName: 'bpDatabase'
   DBUsername:
     Default: root
     NoEcho: 'false'
@@ -34,7 +35,8 @@ Resources:
   bpDataBase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: 'bpDatabase'
+      DBName: 
+        Ref: DBName
       AllocatedStorage:
         Ref: DBAllocatedStorage
       DBInstanceClass:
