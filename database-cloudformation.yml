@@ -40,8 +40,7 @@ Resources:
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
-      MasterUsername:
-        Ref: DBUsername
+      MasterUsername: '{{resolve:ssm:/bpartners/dev/dbuser}}'
       MasterUserPassword:
         Ref: DBPassword
 
