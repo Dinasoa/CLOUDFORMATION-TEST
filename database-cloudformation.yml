@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template '
 Parameters:
   DBName:
-    Default: pgDB
+    Default: bpDB
     Description: The database name
     Type: String
     MinLength: '1'
@@ -40,7 +40,7 @@ Parameters:
     ConstraintDescription: must be between 5+
 
 Resources:
-  pgDB:
+  bpDB:
     Type: AWS::RDS::DBInstance
     Properties:
       DBName:
@@ -63,11 +63,11 @@ Outputs:
       - ''
       - - jdbc:postgresql://
         - Fn::GetAtt:
-          - pgDB
+          - bpDB
           - Endpoint.Address
         - ":"
         - Fn::GetAtt:
-          - pgDB
+          - bpDB
           - Endpoint.Port
         - "/"
         - Ref: DBName
