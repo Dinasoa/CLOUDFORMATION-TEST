@@ -9,13 +9,14 @@ Parameters:
     AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
+  # no default. use SSM parameter for this
   DBUsername:
-    Default: !Sub '{{resolve:ssm:/bpartners/env/dbusername}}'
-    NoEcho: 'false'
-    Type: AWS::SSM::Parameter::Value<String>
-    MinLength: '5'
-    MaxLength: '15'
-    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    NoEcho: 'true'
+    Description: The database admin account username
+    Type: String
+    MinLength: '1'
+    MaxLength: '16'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
   DBPassword:
@@ -24,11 +25,6 @@ Parameters:
     Description: The database admin account password
     Type: String
     MinLength: '8'
-  DBClass:
-    Default: db.t3.micro
-    Description: Database instance class
-    Type: String
-    ConstraintDescription: must select a valid database instance type.
   DBAllocatedStorage:
     Default: '5'
     Description: The size of the database (Gb)
@@ -45,8 +41,6 @@ Resources:
         Ref: DBName
       AllocatedStorage:
         Ref: DBAllocatedStorage
-      DBInstanceClass:
-        Ref: DBClass
       Engine: postgres
       MasterUsername:
         Ref: DBUsername
