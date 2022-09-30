@@ -1,15 +1,14 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template '
 Parameters:
-  # no default. use SSM parameter for this
   DBUsername:
-    Default: 'root'
-    NoEcho: 'true'
+    Default: root
+    NoEcho: 'false'
     Description: The database admin account username
     Type: String
     MinLength: '1'
     MaxLength: '16'
-    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
   DBPassword:
@@ -18,6 +17,11 @@ Parameters:
     Description: The database admin account password
     Type: String
     MinLength: '8'
+  DBClass:
+    Default: db.t3.micro
+    Description: Database instance class
+    Type: String
+    ConstraintDescription: must select a valid database instance type.
   DBAllocatedStorage:
     Default: '5'
     Description: The size of the database (Gb)
@@ -27,14 +31,14 @@ Parameters:
     ConstraintDescription: must be between 5+
 
 Resources:
-  bpDatabase:
+  bpDataBase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: 'bpDatabase' 
-      DBUsername: 
-        Ref: DBUsername
+      DBName: 'bpDatabase'
       AllocatedStorage:
         Ref: DBAllocatedStorage
+      DBInstanceClass:
+        Ref: DBClass
       Engine: postgres
       MasterUsername:
         Ref: DBUsername
@@ -49,11 +53,11 @@ Outputs:
       - ''
       - - jdbc:postgresql://
         - Fn::GetAtt:
-          - bpDatabase
+          - bpDataBase
           - Endpoint.Address
         - ":"
         - Fn::GetAtt:
-          - bpDatabase
+          - bpDataBase
           - Endpoint.Port
         - "/"
         - Ref: DBName
