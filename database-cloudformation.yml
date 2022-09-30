@@ -10,7 +10,7 @@ Parameters:
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
   DBUsername:
-    Value: 'dinasoa'
+    Default: '{{resolve:ssm:/hei-admin-api/${Env}/db/url}}'
     NoEcho: 'false'
     Type: String
     MinLength: '5'
