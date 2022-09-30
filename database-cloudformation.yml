@@ -30,7 +30,7 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: '{{resolve:ssm:/bpartners/env/dbusername}}' 
+      DBName: 'bpDatabase' 
       DBUsername: 
         Ref: DBUsername
       AllocatedStorage:
