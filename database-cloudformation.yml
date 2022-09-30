@@ -7,6 +7,11 @@ Parameters:
     Description: The database admin account password
     Type: String
     MinLength: '8'
+  DBClass:
+    Default: db.t3.micro
+    Description: Database instance class
+    Type: String
+    ConstraintDescription: must select a valid database instance type.
   DBAllocatedStorage:
     Default: '5'
     Description: The size of the database (Gb)
@@ -19,11 +24,13 @@ Resources:
   bpDataBase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: "bpDatabase"
-      DBUsername: "root"
+      DBName: 'bpDatabase'
       AllocatedStorage:
         Ref: DBAllocatedStorage
+      DBInstanceClass:
+        Ref: DBClass
       Engine: postgres
+      MasterUsername: '{{resolve:ssm:/bpartners/dev/dbuser}}'
       MasterUserPassword:
         Ref: DBPassword
 
@@ -42,4 +49,4 @@ Outputs:
           - bpDataBase
           - Endpoint.Port
         - "/"
-        - DBName
+        - Ref: DBName
