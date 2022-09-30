@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'PostgreSQL RDS Template '
+Parameters:
+  DBUsername:
+    Default: root
+    NoEcho: 'false'
+    Description: The database admin account username
+    Type: String
+    MinLength: '1'
+    MaxLength: '16'
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    ConstraintDescription: must begin with a letter and contain only alphanumeric
+      characters.
+  DBPassword:
+    Default: root1234
+    NoEcho: 'true'
+    Description: The database admin account password
+    Type: String
+    MinLength: '8'
+  DBAllocatedStorage:
+    Default: '5'
+    Description: The size of the database (Gb)
+    Type: Number
+    MinValue: '5'
+    MaxValue: '6144'
+    ConstraintDescription: must be between 5+
+
+Resources:
+  bpDatabase:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: 'bpDatabase'
+      AllocatedStorage:
+        Ref: DBAllocatedStorage
+      Engine: postgres
+      MasterUsername:
+        Ref: DBUsername
+      MasterUserPassword:
+        Ref: DBPassword
+
+Outputs:
+  JDBCConnectionString:
+    Description: JDBC connection string for database
+    Value:
+      Fn::Join:
+      - ''
+      - - jdbc:postgresql://
+        - Fn::GetAtt:
+          - bpDatabase
+          - Endpoint.Address
+        - ":"
+        - Fn::GetAtt:
+          - bpDatabase
+          - Endpoint.Port
+        - "/"
+        - DBName
