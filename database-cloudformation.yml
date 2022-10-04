@@ -13,12 +13,6 @@ Parameters:
     AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
     ConstraintDescription: must begin with a letter and contain only alphanumeric
       characters.
-  DBPassword:
-    Default: root1234
-    NoEcho: 'true'
-    Description: The database admin account password
-    Type: String
-    MinLength: '8'
   DBClass:
     Default: db.t3.micro
     Description: Database instance class
@@ -36,15 +30,14 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: !Join ['', [!Ref Env, -bpartners-db]]
+      DBName: bpartner-db
       AllocatedStorage:
         Ref: DBAllocatedStorage
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
       MasterUsername: '{{resolve:ssm:/bpartners/dev/dbuser}}'
-      MasterUserPassword:
-        Ref: DBPassword
+      MasterUserPassword: '{{resolve:ssm:/bpartners/dev/db/password}}'
 
 Outputs:
   JDBCConnectionString:
