@@ -35,7 +35,6 @@ Resources:
         Ref: DBClass
       Engine: postgres
       MasterUsername: '{{resolve:ssm:/bpartners/dev/dbuser}}'
-      MasterUserPassword: '{{resolve:ssm:/bpartners/dev/db/password}}'
 
 Outputs:
   JDBCConnectionString:
