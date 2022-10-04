@@ -1,8 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template '
 Parameters:
-  Env:
-    Type: String
   DBUsername:
     Default: root
     NoEcho: 'false'
