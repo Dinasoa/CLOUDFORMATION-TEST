@@ -21,7 +21,8 @@ Resources:
     Type: AWS::RDS::DBInstance
     Properties:
       DBName: !Join [ "",  [!Ref Env , -bpartners-db ]]
-      AllocatedStorage: '5'
+      AllocatedStorage: 
+        Ref: DBAllocatedStorage
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
