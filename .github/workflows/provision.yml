@@ -29,11 +29,11 @@ jobs:
 
       - name: Put branch_env
         run: |
-          if ${{ github.ref == 'refs/heads/dev' }} then
+          if ${{ github.ref == 'refs/heads/dev' }}; then
             echo "branch_env=dev" >> $GITHUB_ENV
-          elif ${{ github.ref == 'refs/heads/main' }} then
-            echo "branch_env=main" >> $GITHUB_ENV
-          elif ${{ github.ref == 'refs/heads/prod' }} then
+          if ${{ github.ref == 'refs/heads/main' }}; then
+            echo "branch_env=main " >> $GITHUB_ENV
+          if ${{ github.ref == 'refs/heads/prod' }}; then
             echo "branch_env=prod" >> $GITHUB_ENV
 
       - name: Provision database
