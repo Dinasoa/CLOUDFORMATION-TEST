@@ -1,6 +1,8 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template '
 Parameters:
+  Env: 
+    Type: String
   DBUsername:
     Default: root
     NoEcho: 'false'
@@ -16,26 +18,16 @@ Parameters:
     Description: Database instance class
     Type: String
     ConstraintDescription: must select a valid database instance type.
-  DBAllocatedStorage:
-    Default: '5'
-    Description: The size of the database (Gb)
-    Type: Number
-    MinValue: '5'
-    MaxValue: '6144'
-    ConstraintDescription: must be between 5+
 
 Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: bpdatabase
-      AllocatedStorage:
-        Ref: DBAllocatedStorage
-      DBInstanceClass:
-        Ref: DBClass
+      DBName: !Join ['' , !Ref Env , bparterns-db]
+      AllocatedStorage: 5
       Engine: postgres
-      MasterUsername: '{{resolve:ssm:/bpartners/dev/dbuser:1}}'
-      MasterUserPassword:  '{{resolve:ssm:/bpartners/dev/db/password:1}}'
+      MasterUsername: '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
+      MasterUserPassword: '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
 
 Outputs:
   JDBCConnectionString:
