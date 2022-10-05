@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2019-09-09'
+AWSTemplateFormatVersion: '2010-09-09'
 Description: 'S3 Bucket template'
 
 Resources:
@@ -6,7 +6,7 @@ Resources:
   Type: AWS::S3::Bucket
   Properties:
     BucketName: bucket
-    
+
 Outputs:
   S3Bucket:
     Description: Bucket Created using this template.

@@ -1,4 +1,4 @@
-name: provision 
+name: s3-provision 
 
 on:
   push:
