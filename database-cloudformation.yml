@@ -3,30 +3,16 @@ Description: 'PostgreSQL RDS Template '
 Parameters:
   Env: 
     Type: String
-  DBUsername:
-    Default: root
-    NoEcho: 'false'
-    Description: The database admin account username
-    Type: String
-    MinLength: '1'
-    MaxLength: '16'
-    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
-    ConstraintDescription: must begin with a letter and contain only alphanumeric
-      characters.
-  DBClass:
-    Default: db.t3.micro
-    Description: Database instance class
-    Type: String
-    ConstraintDescription: must select a valid database instance type.
+    Default: dev
 
 Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: !Join ['' , !Ref Env , bparterns-db]
+      DBName: !Join ['' , !Ref Env , bpartners-db]
       AllocatedStorage: 5
       Engine: postgres
-      MasterUsername: '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
+      MasterUsername: '{{resolve:ssm:/bpartners/${Env}/dbusername:1}}'
       MasterUserPassword: '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
 
 Outputs:
