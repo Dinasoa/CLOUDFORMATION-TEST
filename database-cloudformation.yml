@@ -25,8 +25,8 @@ Resources:
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
-      MasterUsername: '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
-      MasterUserPassword: '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
+      MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
+      MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
 
 Outputs:
   JDBCConnectionString:
