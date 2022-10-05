@@ -35,4 +35,4 @@ jobs:
           no-fail-on-empty-changeset: "1"
           parameter-overrides:
             "DBAllocatedStorage=5 , 
-            Env= ${{ steps.branch-name.outputs.current_branch }} "
+            Env= ${{ github.ref_name }} "
