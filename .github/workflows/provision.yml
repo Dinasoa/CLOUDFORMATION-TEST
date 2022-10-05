@@ -27,6 +27,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Put branch_env
+        run: |
+          if ${{ github.ref == 'refs/heads/dev' }}; then
+            echo "branch_env=dev" >> $GITHUB_ENV
+          elif ${{ github.ref == 'refs/heads/main' }}; then
+            echo "branch_env=main" >> $GITHUB_ENV
+          elif ${{ github.ref == 'refs/heads/prod' }}; then
+            echo "branch_env=prod" >> $GITHUB_ENV
+
       - name: Provision database
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
@@ -35,4 +44,4 @@ jobs:
           no-fail-on-empty-changeset: "1"
           parameter-overrides:
             "DBAllocatedStorage=5 , 
-            Env=${{ secrets.ENV }}"
+            Env=${{ env.branch_env }}"
