@@ -15,12 +15,12 @@ Parameters:
     MinValue: '5'
     MaxValue: '6144'
     ConstraintDescription: must be between 5+
- 
+
 Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: bpartners-db
+      DBName: !Join ['' , !Ref Env , -bpartners-db]
       AllocatedStorage: '5'
       DBInstanceClass:
         Ref: DBClass
