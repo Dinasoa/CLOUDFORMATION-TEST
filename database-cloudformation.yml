@@ -26,22 +26,5 @@ Resources:
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
-      MasterUsername: 'blabla'
-      MasterUserPassword: 'blabla'
-
-Outputs:
-  JDBCConnectionString:
-    Description: JDBC connection string for database
-    Value:
-      Fn::Join:
-      - ''
-      - - jdbc:postgresql://
-        - Fn::GetAtt:
-          - bpDatabase
-          - Endpoint.Address
-        - ":"
-        - Fn::GetAtt:
-          - bpDatabase
-          - Endpoint.Port
-        - "/"
-        - DBName
+      MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
+      MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
