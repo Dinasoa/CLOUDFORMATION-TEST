@@ -20,7 +20,7 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: pgDB
+      DBName: bpDatabase
       AllocatedStorage: '5'
       DBInstanceClass:
         Ref: DBClass
