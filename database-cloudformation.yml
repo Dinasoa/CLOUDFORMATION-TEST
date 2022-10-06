@@ -20,7 +20,7 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: bpDB
+      DBName: bpDatabase
       AllocatedStorage: 
         Ref: DBAllocatedStorage
       DBInstanceClass:
