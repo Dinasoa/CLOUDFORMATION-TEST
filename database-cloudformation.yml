@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'PostgreSQL RDS Template'
+Description: 'B-partners database'
 Parameters:
   Env: 
     Type: String
@@ -28,3 +28,20 @@ Resources:
       Engine: postgres
       MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
       MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
+
+Outputs:
+  JDBCConnectionString:
+    Description: JDBC connection string for database
+    Value:
+      Fn::Join:
+      - ''
+      - - jdbc:postgresql://
+        - Fn::GetAtt:
+          - bpDatabase
+          - Endpoint.Address
+        - ":"
+        - Fn::GetAtt:
+          - bpDatabase
+          - Endpoint.Port
+        - "/"
+        - DBName
