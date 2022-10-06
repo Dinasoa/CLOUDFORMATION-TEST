@@ -1,6 +1,8 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'PostgreSQL RDS Template'
 Parameters:
+  Env: 
+    Type: String
   DBName:
     Default: pgDB
     Description: The database name
