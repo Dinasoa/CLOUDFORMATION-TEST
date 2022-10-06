@@ -20,7 +20,7 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: bpDB
+      DBName: ${Env}-bpartners-db
       AllocatedStorage: 
         Ref: DBAllocatedStorage
       DBInstanceClass:
