@@ -20,12 +20,12 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: bPartners
+      DBName: bpartners-db
       AllocatedStorage: 
         Ref: DBAllocatedStorage
       DBInstanceClass:
         Ref: DBClass
-      Engine: postgreshttps://www.youtube.com/watch?v=gRG_5SQVARc&list=RDgRG_5SQVARc&start_radio=1
+      Engine: postgres
       MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
       MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
 
