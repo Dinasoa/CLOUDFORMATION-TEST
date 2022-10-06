@@ -33,6 +33,4 @@ jobs:
           name: database-cloudformation
           template: database-cloudformation.yml
           no-fail-on-empty-changeset: "1"
-          parameter-overrides:
-            "DBAllocatedStorage=5 , 
-            Env=${{ github.ref_name }}"
+          parameter-overrides: "Env=${{ github.ref_name }}"

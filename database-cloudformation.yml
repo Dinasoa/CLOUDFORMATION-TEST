@@ -20,9 +20,8 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: bpartners-db
-      AllocatedStorage: 
-        Ref: DBAllocatedStorage
+      DBName: dev-bpartners-db
+      AllocatedStorage: '5'
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
