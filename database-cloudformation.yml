@@ -20,14 +20,14 @@ Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: !Join [ "",  [!Ref Env , -bpartners-db ]]
+      DBName: !Join ["",  [!Ref Env , -bpartners-db ]]
       AllocatedStorage: 
         Ref: DBAllocatedStorage
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
-      MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
-      MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
+      MasterUsername: 'blabla'
+      MasterUserPassword: 'blabla'
 
 Outputs:
   JDBCConnectionString:
