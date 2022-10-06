@@ -8,19 +8,12 @@ Parameters:
     Description: Database instance class
     Type: String
     ConstraintDescription: must select a valid database instance type.
-  DBAllocatedStorage:
-    Default: '5'
-    Description: The size of the database (Gb)
-    Type: Number
-    MinValue: '5'
-    MaxValue: '6144'
-    ConstraintDescription: must be between 5+
 
 Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: dev-bpDB
+      DBName: bpartnersDatabase
       AllocatedStorage: '5'
       DBInstanceClass:
         Ref: DBClass
