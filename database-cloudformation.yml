@@ -3,11 +3,6 @@ Description: 'B-partners database'
 Parameters:
   Env: 
     Type: String
-  DBClass:
-    Default: db.t3.micro
-    Description: Database instance class
-    Type: String
-    ConstraintDescription: must select a valid database instance type.
 
 Resources:
   bpDatabase:
@@ -15,8 +10,6 @@ Resources:
     Properties:
       DBName: !Join ["",  [!Ref Env , bpartnersDb ]]
       AllocatedStorage: '5'
-      DBInstanceClass:
-        Ref: DBClass
       Engine: postgres
       MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
       MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
