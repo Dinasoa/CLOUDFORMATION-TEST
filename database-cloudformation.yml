@@ -18,12 +18,13 @@ Resources:
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
-      MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbuser:1}}'
-      MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
+      MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbusername}}'
+      MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password}}'
 
 Outputs:
   JDBCConnectionString:
     Description: JDBC connection string for database
+    # Value : '{{resolve:ssm:/bpartners/dev/url}}'
     Value:
       Fn::Join:
       - ''
@@ -35,5 +36,5 @@ Outputs:
         - Fn::GetAtt:
           - bpDatabase
           - Endpoint.Port
-        - "/"
+        - "/"database
         - DBName
