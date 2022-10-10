@@ -18,8 +18,8 @@ Resources:
       DBInstanceClass:
         Ref: DBClass
       Engine: postgres
-      MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbusername}}'
-      MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password}}'
+      MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbusername:1}}'
+      MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password:1}}'
 
 Outputs:
   JDBCConnectionString:
@@ -36,5 +36,5 @@ Outputs:
         - Fn::GetAtt:
           - bpDatabase
           - Endpoint.Port
-        - "/"database
+        - "/"
         - DBName
