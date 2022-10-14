@@ -6,7 +6,7 @@ Resources:
   MySourceQueue: 
     Type: AWS::SQS::Queue
     Properties: 
-      QueueName: !Join ['' , !Ref Env , -bparnters-api]
+      QueueName: !Join ['',  [!Ref Env , bpartners-api]]
       RedrivePolicy: 
         deadLetterTargetArn: 
           Fn::GetAtt: 
@@ -16,7 +16,7 @@ Resources:
   MyDeadLetterQueue: 
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: !Join ['' , !Ref Env , -bpartners-api-dl]
+      QueueName: !Join ['',  [!Ref Env , bpartners-api-dl]]
 Outputs: 
   SourceQueueURL: 
     Description: "URL of source queue"
