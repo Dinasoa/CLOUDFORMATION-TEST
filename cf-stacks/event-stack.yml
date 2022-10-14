@@ -4,36 +4,36 @@ Parameters:
     Type: String
   
 Resources: 
-  SourceQueue: 
+  MySourceQueue: 
     Type: AWS::SQS::Queue
     Properties: 
       QueueName: 
       RedrivePolicy: 
         deadLetterTargetArn: 
           Fn::GetAtt: 
-            - "DeadLetterQueue"
+            - "MyDeadLetterQueue"
             - "Arn"
         maxReceiveCount: 5
-  DeadLetterQueue:
+  MyDeadLetterQueue:
     Type: AWS::SQS::Queue
 Outputs: 
   SourceQueueURL: 
     Description: "URL of source queue"
     Value:
-      Ref: "SourceQueue"
+      Ref: "MySourceQueue"
   SourceQueueARN: 
     Description: "ARN of source queue"
     Value: 
       Fn::GetAtt: 
-        - "SourceQueue"
+        - "MySourceQueue"
         - "Arn"
   DeadLetterQueueURL: 
     Description: "URL of dead-letter queue"
     Value: 
-      Ref: "DeadLetterQueue"
+      Ref: "MyDeadLetterQueue"
   DeadLetterQueueARN:
     Description: "ARN of dead-letter queue"
     Value:
       Fn::GetAtt:
-        - "DeadLetterQueue"
+        - "MyDeadLetterQueue"
         - "Arn"
