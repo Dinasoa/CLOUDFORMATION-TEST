@@ -12,8 +12,9 @@ Parameters:
 Resources:
   bpDatabase:
     Type: AWS::RDS::DBInstance
+    DeletionPolicy: Retain
     Properties:
-      DBName: !Join ["",  [!Ref Env , BpartnersDb ]]
+      DBName: !Join ["",  [!Ref Env , Bpartners]]
       AllocatedStorage: '5'
       DBInstanceClass:
         Ref: DBClass
@@ -21,8 +22,21 @@ Resources:
       MasterUsername: !Sub '{{resolve:ssm:/bpartners/${Env}/dbusername}}'
       MasterUserPassword: !Sub '{{resolve:ssm:/bpartners/${Env}/db/password}}'
 
+  dbUrl: 
+    Type: AWS::SSM::Parameter
+    Properties: 
+      AllowedPattern: String
+      DataType: String
+      Description: String
+      Name: String
+      Policies: String
+      Tags: Json
+      Tier: String
+      Type: String
+      Value: String
+
 Outputs:
-  JDBCConnectionString:
+  JDBCConnectionString: 
     Description: JDBC connection string for database
     # Value : '{{resolve:ssm:/bpartners/dev/url}}'
     Value:

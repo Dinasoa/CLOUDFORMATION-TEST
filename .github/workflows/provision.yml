@@ -26,11 +26,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
       
+      - name: Provision SQS
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: S3-stack-cloudformation
+          template: cf-stacks/event-stack.yml
+
       - name: Provision database
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: database-cloudformation
-          template: database-cloudformation.yml
+          template: cf-stacks/database-cloudformation.yml
           no-fail-on-empty-changeset: "1"
           parameter-overrides: "Env=${{ github.ref_name }}"
           
@@ -38,7 +44,7 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: S3-stack-cloudformation
-          template: s3-stack-cloudformation.yml
+          template: cf-stacks/s3-stack-cloudformation.yml
           parameter-overrides: "Env=${{ github.ref_name }}"
           
       
