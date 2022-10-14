@@ -2,11 +2,17 @@ AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
   Env: 
     Type: String
+  SourceQueue: 
+    Type: String 
+    Default: !Join ['',  [!Ref Env , bpartners-api]]
+  DeadLetterQueue: 
+    Type: String 
+    Default: !Join ['',  [!Ref Env , bpartners-api-dl]]
 Resources: 
   MySourceQueue: 
     Type: AWS::SQS::Queue
     Properties: 
-      QueueName: !Join ['',  [!Ref Env , bpartners-api]]
+      QueueName: !Ref SourceQueue
       RedrivePolicy: 
         deadLetterTargetArn: 
           Fn::GetAtt: 
@@ -16,25 +22,25 @@ Resources:
   MyDeadLetterQueue: 
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: !Join ['',  [!Ref Env , bpartners-api-dl]]
+      QueueName: !Ref DeadLetterQueue
 Outputs: 
   SourceQueueURL: 
     Description: "URL of source queue"
     Value: 
-      Ref: "MySourceQueue"
+      Ref: !Ref SourceQueue
   SourceQueueARN: 
     Description: "ARN of source queue"
     Value: 
       Fn::GetAtt: 
-        - "MySourceQueue"
+        - !Ref SourceQueue
         - "Arn"
   DeadLetterQueueURL: 
     Description: "URL of dead-letter queue"
     Value: 
-      Ref: "MyDeadLetterQueue"
+      Ref: !Ref DeadLetterQueue
   DeadLetterQueueARN:
     Description: "ARN of dead-letter queue"
     Value:
       Fn::GetAtt:
-        - "MyDeadLetterQueue"
+        - !Ref DeadLetterQueue
         - "Arn"
