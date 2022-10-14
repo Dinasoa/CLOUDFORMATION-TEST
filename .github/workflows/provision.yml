@@ -31,6 +31,7 @@ jobs:
         with:
           name: S3-stack-cloudformation
           template: cf-stacks/event-stack.yml
+          parameter-overrides: "Env=${{ github.ref_name }}"
 
       - name: Provision database
         uses: aws-actions/aws-cloudformation-github-deploy@v1
