@@ -2,8 +2,6 @@ AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
   Env: 
     Type: String
-  QueueName: 
-    Type: String 
 Resources: 
   MySourceQueue: 
     Type: AWS::SQS::Queue
