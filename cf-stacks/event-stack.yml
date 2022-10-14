@@ -4,10 +4,10 @@ Parameters:
     Type: String
   SourceQueue: 
     Type: String 
-    Default: !Join ['',  [!Ref Env , bpartners-api]]
+    Default: !Join ["",  [!Ref Env , bpartners-api]]
   DeadLetterQueue: 
     Type: String 
-    Default: !Join ['',  [!Ref Env , bpartners-api-dl]]
+    Default: !Join ["",  [!Ref Env , bpartners-api-dl]]
 Resources: 
   MySourceQueue: 
     Type: AWS::SQS::Queue
