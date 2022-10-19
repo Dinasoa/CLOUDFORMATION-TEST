@@ -16,12 +16,12 @@ Resources:
             - "Arn"
         maxReceiveCount: 5
   
-  MailboxSSM: 
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: !Join ['', [/bpartners/, !Ref Env, /sqs/mailbox-queue-url]]
-      Type: String
-      Value: !Ref MailboxQueue.QueueURL
+  # MailboxSSM: 
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: !Join ['', [/bpartners/, !Ref Env, /sqs/mailbox-queue-url]]
+  #     Type: String
+  #     Value: !Ref MailboxQueue.QueueURL
 
   DeadLetterQueue:
     Type: AWS::SQS::Queue
