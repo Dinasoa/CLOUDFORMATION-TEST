@@ -15,17 +15,20 @@ Resources:
 
   DeadLetterQueue:
     Type: AWS::SQS::Queue
-
+    QueueName:  !Join ['' , [!Ref Env , -bpartners-dl]]
+    
   MailboxQueueSSM: 
     Type: AWS::SSM::Parameter
     Properties:
       Name: !Join ['' , [/bpartners/ , !Ref Env , /sqs/mailbox-queue-url]]
+      Type: String
       Value: !Ref MailboxQueue
   
   DeadLetterQueueSSM:
     Type: AWS::SSM::Parameter
     Properties:
       Name: !Join ['' , [/bpartners/ , !Ref Env , /sqs/dead-letter-queue-url]]
+      Type: String
       Value: !Ref DeadLetterQueue
 
   EventBridgeBus:
@@ -39,14 +42,14 @@ Resources:
       ArchiveName: !Join ['', [!Ref Env, -bpartners, -archive]]
       SourceArn: !GetAtt EventBridgeBus.Arn
       
-  # EventBridgeRule:
-  #   Type: AWS::Event::Rule
-  #   Properties:
-  #     Name: !Join ['', [!Ref Env, -bpartners, -from-api-to-api]]
-  #     EventBusName: !GetAtt EventBridgeBus.Name
-  #     EventPattern:
-  #       Source:
-  #         - aws.ecs
+  EventBridgeRule:
+    Type: AWS::Event::Rule
+    Properties:
+      Name: !Join ['', [!Ref Env, -bpartners, -from-api-to-api]]
+      EventBusName: !GetAtt EventBridgeBus.Name
+      EventPattern:
+        Source:
+          - aws.ecs
 
 Outputs: 
   MailboxQueueURL: 
