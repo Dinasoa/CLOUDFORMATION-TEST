@@ -15,8 +15,9 @@ Resources:
 
   DeadLetterQueue:
     Type: AWS::SQS::Queue
-    QueueName:  !Join ['' , [!Ref Env , -bpartners-dl]]
-    
+    Properties:
+      QueueName:  !Join ['' , [!Ref Env , -bpartners-dl]]
+
   MailboxQueueSSM: 
     Type: AWS::SSM::Parameter
     Properties:
