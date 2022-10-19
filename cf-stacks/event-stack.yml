@@ -17,24 +17,3 @@ Resources:
         maxReceiveCount: 5
   DeadLetterQueue:
     Type: AWS::SQS::Queue
-Outputs: 
-  SourceQueueURL: 
-    Description: "URL of source queue"
-    Value: 
-      Ref: "SourceQueue"
-  SourceQueueARN: 
-    Description: "ARN of source queue"
-    Value: 
-      Fn::GetAtt: 
-        - "SourceQueue"
-        - "Arn"
-  DeadLetterQueueURL: 
-    Description: "URL of dead-letter queue"
-    Value: 
-      Ref: "DeadLetterQueue"
-  DeadLetterQueueARN: 
-    Description: "ARN of dead-letter queue"
-    Value: 
-      Fn::GetAtt: 
-        - "DeadLetterQueue"
-        - "Arn"
