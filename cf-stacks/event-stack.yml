@@ -17,3 +17,5 @@ Resources:
         maxReceiveCount: 5
   DeadLetterQueue:
     Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Join ['' , [!Ref Env , -bpartners-api-dl]]
