@@ -32,7 +32,7 @@ Resources:
     Type: AWS::SQS::Queue
     QueueName: !Join ['' , [!Ref Env , -bpartners-dl]]
   
-  DeadLetterQueue:
+  DeadLetterQueueSSM:
     Type: AWS::SSM::Parameter
     Properties:
       Name: !Join ['', [/bpartners/, !Ref Env, /sqs/deadletter-queue-url]]
@@ -53,7 +53,7 @@ Resources:
       EventPattern:
         Source:
           - aws.ecs
-          
+
 Outputs: 
   MailboxQueueURL: 
     Value: 
