@@ -12,6 +12,7 @@ Resources:
       RedrivePolicy: 
         deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
         maxReceiveCount: 5
+
   DeadLetterQueue:
     Type: AWS::SQS::Queue
 
@@ -38,14 +39,14 @@ Resources:
       ArchiveName: !Join ['', [!Ref Env, -bpartners, -archive]]
       SourceArn: !GetAtt EventBridgeBus.Arn
       
-  EventBridgeRule:
-    Type: AWS::Event::Rule
-    Properties:
-      Name: !Join ['', [!Ref Env, -bpartners, -from-api-to-api]]
-      EventBusName: !GetAtt EventBridgeBus.Name
-      EventPattern:
-        Source:
-          - aws.ecs
+  # EventBridgeRule:
+  #   Type: AWS::Event::Rule
+  #   Properties:
+  #     Name: !Join ['', [!Ref Env, -bpartners, -from-api-to-api]]
+  #     EventBusName: !GetAtt EventBridgeBus.Name
+  #     EventPattern:
+  #       Source:
+  #         - aws.ecs
 
 Outputs: 
   MailboxQueueURL: 
