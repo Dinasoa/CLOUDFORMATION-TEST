@@ -44,7 +44,7 @@ Resources:
       SourceArn: !GetAtt EventBridgeBus.Arn
       
   EventBridgeRule:
-    Type: AWS::Event::Rule
+    Type: AWS::Events::Rule
     Properties:
       Name: !Join ['', [!Ref Env, -bpartners, -from-api-to-api]]
       EventBusName: !GetAtt EventBridgeBus.Name
