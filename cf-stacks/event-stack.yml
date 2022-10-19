@@ -5,11 +5,6 @@ Parameters:
     Type: String 
 
 Resources: 
-  EventBridgeBus:
-    Type: AWS::Events::EventBus
-    Properties:
-      Name: !Join ['', [!Ref Env, -bpartners]]
-
   MailboxQueue: 
     Type: AWS::SQS::Queue
     Properties: 
@@ -20,45 +15,19 @@ Resources:
             - "DeadLetterQueue"
             - "Arn"
         maxReceiveCount: 5
-  
-  MailboxSSM: 
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: !Join ['', [/bpartners/, !Ref Env, /sqs/mailbox-queue-url]]
-      Type: String
-      Value: !Ref MailboxQueue
-
   DeadLetterQueue:
     Type: AWS::SQS::Queue
-    QueueName: !Join ['' , [!Ref Env , -bpartners-dl]]
-  
-  DeadLetterQueueSSM:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: !Join ['', [/bpartners/, !Ref Env, /sqs/deadletter-queue-url]]
-      Type: String
-      Value: !Ref DeadLetterQueue
 
-  EventBridgeArchive:
-    Type: AWS::Events::Archive
-    Properties:
-      ArchiveName: !Join ['', [!Ref Env, -bpartners, -archive]]
-      SourceArn: !GetAtt EventBridgeBus.Arn
-
-  EventBridgeRule:
-    Type: AWS::Event::Rule
-    Properties:
-      Name: !Join ['', [!Ref Env, -bpartners, -from-api-to-api]]
-      EventBusName: !GetAtt EventBridgeBus.Name
-      EventPattern:
-        Source:
-          - aws.ecs
 
 Outputs: 
   MailboxQueueURL: 
     Value: 
       Ref: "MailboxQueue"
-
   DeadLetterQueueURL: 
     Value: 
       Ref: "DeadLetterQueue"
+  DeadLetterQueueARN: 
+    Value: 
+      Fn::GetAtt: 
+        - "DeadLetterQueue"
+        - "Arn"
